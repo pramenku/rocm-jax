@@ -328,10 +328,10 @@ def parse_args():
     args = p.parse_args()
 
     # Make sure that the user hasn't tried to set both --therock-path and either --rocm-build-job or --rocm-build-num
-    if args.therock_path and (args.rocm_build_job):
-        p.error(
-            "You cannot set both --therock-path and --rocm-build-job."
-        )
+    #if args.therock_path and (args.rocm_build_job or args.rocm_build_num):
+    #    p.error(
+    #        "You cannot set both --therock-path and --rocm-build-job/--rocm-build-num."
+    #    )
 
     # Make sure that the user has set both a build job and build number if trying to get ROCm from the mainline build
     if (args.rocm_build_job and not args.rocm_build_num) or (
