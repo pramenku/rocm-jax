@@ -215,7 +215,7 @@ def _install_therock(rocm_version, therock_path, build_num):
         LOG.info("Running %r", cmd)
         subprocess.check_call(cmd)
         
-        cmd = ["echo", rocm_version-build_num, ">", rocm_real_path/.info/version-rocm]
+        cmd = ["echo", rocm-version-build-num, ">", rocm_real_path/.info/version-rocm]
         LOG.info("Running %r", cmd)
         subprocess.check_call(cmd)
     
