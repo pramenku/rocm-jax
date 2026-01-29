@@ -191,7 +191,7 @@ def get_system():
     raise RocmInstallException("No system for %r" % md)
 
 
-def _install_therock(rocm_version, therock_path):
+def _install_therock(rocm_version, therock_path, build_num):
     """Install TheRock onto the system. This can be done in two different ways,
     1. By copying a directory containing TheRock into the regular ROCm install location
     2. By downloading a tarball from ThehRock's release page and unpacking it into the regular
@@ -214,6 +214,11 @@ def _install_therock(rocm_version, therock_path):
         cmd = ["tar", "-xzf", tar_path, "-C", rocm_real_path]
         LOG.info("Running %r", cmd)
         subprocess.check_call(cmd)
+        
+        cmd = ["echo", rocm_version-build_num, ">", rocm_real_path/.info/version-rocm]
+        LOG.info("Running %r", cmd)
+        subprocess.check_call(cmd)
+    
 
     os.symlink(rocm_real_path, rocm_sym_path, target_is_directory=True)
 
@@ -265,7 +270,7 @@ def _setup_internal_repo(system, rocm_version, job_name, build_num):
 def install_rocm(rocm_version, job_name=None, build_num=None, therock_path=None):
     """Download and install the requested version of ROCm."""
     if therock_path:
-        _install_therock(rocm_version, therock_path)
+        _install_therock(rocm_version, therock_path, build_num)
     else:
         s = get_system()
         if job_name and build_num:
